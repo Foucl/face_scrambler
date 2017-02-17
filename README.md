@@ -17,7 +17,7 @@ Go to the [official download page](https://www.continuum.io/downloads) and klick
 The package depends on the popular Computer Vision library OpenCV.
 Open a Terminal (Command Prompt in MS Windows) and type the following:
 
-    $ conda install -c menpo opencv
+    $ conda install -c menpo opencv3
     
 When asked, type `y` and Enter to confirm the installation. 
 
