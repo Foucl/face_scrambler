@@ -1,0 +1,39 @@
+os:
+- osx
+branches:
+  all: true
+  
+before_install:
+- brew update
+install:
+- curl -L -O https://raw.githubusercontent.com/conda-forge/conda-smithy/master/bootstrap-obvious-ci-and-miniconda.py
+- python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci &&
+  source ~/miniconda/bin/activate root
+- pip install --upgrade pip
+- conda info
+- python --version
+- pip install --upgrade pip
+- conda install --yes numpy
+- conda install -c conda-forge --yes opencv
+- pip install pyinstaller
+- pip freeze
+script:
+- pyinstaller --windowed --onefile ./face_scrambler/gui.py
+#altnerantive : -pyinstaller --noconsole --onefile ./face_scrambler/gui.py
+#- ls
+#- hdiutil create dist/face.dmg -srcfolder dist/ -ov
+#- zip -r dist/face.zip dist/face.app
+#- ls dist/
+deploy:
+- provider: releases
+- skip_cleanup: true
+- file: "/Users/travis/build/Foucl/face_scrambler/dist/gui.app"
+- api_key:
+  - secure: D8OEqs174g21+fypU+MNLxXN/H45Yvpr6BrPzqX4Z7xNq/lbb8TxYlie72ROjZ+v3w3hTAGwaFCDUf57/TB9brkXE9gprfs6OvUGgT+lEH3P5CklY62VJSbKSYGCvRvbi03zHfLJxagh1fUjFTu7BJNqzgsZ3EA7v8HmNuddwZa1lxiSOiZpNDeNUV8Hm+DVe2xyq+PDmcuRICE6cNiGpEpW/chpyTL3ydU2l36MByY6K/z+UGng3vFXf6JL8G7ysJE4podtqnfYWN1JIxIxL9+go6jfDgCT8OZ2kkgTtmeb/mZNfojoXaVnuPr30F3LhkSbFuQElgUohE2B24nqbwifyaSxEGW3NKo5bGFhTlWP8tQ7CD9klxDujJXS6VPe5S1DtjBPrs66+D9uBMHIEMTJjMdQ72NqAWZsmT2oMfs/8vCvss1RYQZLbDlPzy2KSAKLlzX4wCYmq3ADzsTLgjZ551Gs51eutvCrnV1hEcUr2se73UiePZFBw9A8Ry3fcu0hMhy9xZ+NoWBkmSsYBPKWaQyFsLv/tLi1qJUN7jjIO741KWScUKOoNPK8VvWVhtZ9pn5iQ9QtTrdxrIaXTYgNt/9/AG8fXB8PKVRzWET9s8MOLuR4hASJvCYeQxa2TvTRJvgFcIgvMir13tS63iUnyDo+pVP3SWRn4En1h3Y=
+- on:
+  - repo: Foucl/face_srambler
+  - all_branches: true
+
+    # altnerative: dist/face.dmg
+    # dist/face.zip
+

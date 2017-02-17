@@ -1,0 +1,4 @@
+# Dev/Deployment
+future
+#OpenCV
+#numpy
