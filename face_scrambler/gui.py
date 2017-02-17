@@ -31,7 +31,7 @@ class PageLoad(Page):
         Page.__init__(self, parent, text="1. Load an Image", *args, **kwargs)
         self.file_opt = {}
         self.file_opt['defaultextension'] = '.jpg'
-        self.file_opt['filetypes'] = [('Image Files', '*.jpg;*.png;*.bmp;*.jpeg'), ('All Files', '*.*')]
+        self.file_opt['filetypes'] = [('All Files', '*.*'), ('Image Files', '*.jpg;*.png;*.bmp;*.jpeg')]
         self.file_opt['title'] = 'Select an Image File'
         self.opn_btn_text = StringVar()
         self.opn_btn_text.set('Open File')
