@@ -31,7 +31,7 @@ class PageLoad(Page):
         Page.__init__(self, parent, text="1. Load an Image", *args, **kwargs)
         self.file_opt = {}
         self.file_opt['defaultextension'] = '.jpg'
-        self.file_opt['filetypes'] = [('Image Files', '.jpg;.png;.png;.bmp;.jpeg'), ('All Files', '.*')]
+        self.file_opt['filetypes'] = [('Image Files', '.jpg;.png;.bmp;.jpeg'), ('All Files', '.*')]
         self.file_opt['title'] = 'Select an Image File'
         self.opn_btn_text = StringVar()
         self.opn_btn_text.set('Open File')
@@ -75,7 +75,7 @@ class PageLoad(Page):
         self.parent.dirmode = True
         cfg['last_in_dir'] = self.parent.input_dir
         helpers.dict_to_config(cfg, self.parent.Config, True)
-        valid_images = (".jpg",".gif",".png",".tga")
+        valid_images = (".jpg","jpeg", ".bmp", ".gif",".png",".tga")
         for f in os.listdir(self.parent.input_dir):
             if f.lower().endswith(valid_images):
                 this_f = os.path.join(self.parent.input_dir, f)
@@ -87,8 +87,10 @@ class PageLoad(Page):
         self.label_text.set(lbl_text)
         self.label_fname.pack(padx=5)
         print(self.parent.input_dir)
-        #
-        self.show_buttons()
+        if n_img > 0:
+            self.parent.img = cv2.imread(self.parent.all_files[0])
+            self.parent.img_orig = self.parent.img.copy()
+            self.show_buttons()
         
 class PageOpt(Page):
     def __init__(self, parent, *args, **kwargs):
